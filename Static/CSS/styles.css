@@ -1,0 +1,93 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	font-family: Tahoma;
+}
+
+#gif{
+	text-align: center;
+}
+
+body{
+	background-color: black;
+	color: white;
+	text-align: center;
+}
+
+#user{
+	background-color: gold;
+	width: 30%;
+	height: 35%;
+	margin-left: 10%;
+	border: 3px blue solid;
+	color: blue;
+	text-align: center;
+}
+
+#container{
+	vertical-align: top;
+	margin: 1%;
+	background-color: black;
+}
+
+#status{
+	width: 35%;
+	height: 35%;
+	background-color: gold;
+	color: blue;
+	border: 3px blue solid;
+
+}
+
+#user, #status{
+	display: inline-block;
+	margin-top: 2%;
+	vertical-align: top;
+	margin-bottom: 10%;
+}
+
+#left{
+	width: 50%;
+	background-color: black;
+	height: 75%;
+}
+
+#weapon{
+	height: 30%;
+	width: 95%;
+	padding-left: 10%;
+}
+
+#sword, #blaster, #grenade{
+	color: blue;
+	background-color: gold;
+	border: 3px blue solid;
+	width: 25%;
+	height: 95%;
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+}
+
+#right{
+	background-color: black;
+	color: white;
+	width: 45%;
+	height: 75%;
+}
+
+#left, #right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+#boss{
+	background: red;
+	font-size: 150%;
+	height: 38%;
+	width: 90%;
+	margin-top: 2%;
+	padding: 3%;
+	margin-left: 2%;
+	text-align: center;
+}

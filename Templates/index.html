@@ -1,0 +1,140 @@
+<html>
+<head>
+	<title>Destroy the Space Emperor of Space!</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+	<script type="text/javascript" src = "static/js/jquery-2.2.0.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var player_hp = 100;
+		var boss_hp = 300;
+		var turns = 10;
+		console.log(turns);
+		console.log('activate!');
+		// Emperor Taunts
+		var name = prompt("YOU WOULD DARE ATTACK THE SPACE EMPEROR OF SPACE? WHAT IS YOUR NAME, MORTAL?");
+		while(!name){
+			name = prompt("SPEAK UP, FOOL! I LIKE TO KNOW THE NAME OF THOSE I DESTROY!");
+		}
+		alert("Very well "+name+ ". Prepare for the fight of your life! Being a sporting demon, I shall give you ten free attacks before I snuff out your pathetic life!");
+
+		// Sends name to the server.
+		$.ajax(
+		{url:"/nameget",
+		method:"post",
+		data: name,
+		success:function(something){
+			$('#namer').html(something);
+		}
+		})
+
+		$('#sword').click(function(){
+			console.log('sword!');
+			boss_hp -= 25;
+			var message = "<p>THE SPACE EMPEROR HAS "+boss_hp+" HP LEFT!</p>";
+			turns -= 1;
+			var taunt = "THE SPACEWAYS SHALL FLOW RED WITH YOUR BLOOD, MORTAL!"
+			$('#turns').html("<p>Remaining Turns: "+turns);
+			$('#boss_status').html(message);
+			$('#message').html(taunt);
+		})
+
+		$('#blaster').click(function(){
+			console.log('blaster!');
+			damage = Math.floor(Math.random()*55);
+			if(damage < 15){
+				damage = 15;
+			}
+			if(damage >40){
+				damage = 40;
+			}
+			console.log(damage);
+			boss_hp -= damage;
+			var message = "<p>THE SPACE EMPEROR HAS "+boss_hp+" HP LEFT!</p>";
+			turns -= 1;
+			var taunt = "Argh! You shall pay for your insolence!";
+			$('#turns').html("<p>Remaining Turns: "+turns);
+			$('#boss_status').html(message);
+			$('#message').html(taunt);
+		})
+
+		$('#grenade').click(function(){
+			console.log('grenade');
+			damage = Math.floor(Math.random()*100);
+			if(damage <50){
+				damage = damage*2;
+			}
+			player_hp -= damage/2;
+			boss_hp -= damage;
+			var message = "<p>THE SPACE EMPEROR HAS "+boss_hp+" HP LEFT!</p>";
+			turns -= 1;
+			status = "<p>Remaining HP: "+player_hp;
+			var taunt = "Hah! Your weapon has harmed you as well!"
+			$('#turns').html("<p>Remaining Turns: "+turns);
+			$('#boss_status').html(message);
+			$('#player_hp').html(status);
+			$('#message').html(taunt);			
+		})
+
+		$('#container').click(function(){
+			if(boss_hp <= 0){
+				console.log('victoly');
+				$('#title').html("Add your name to the leaderboard! <a href='/success'>Click Here!</a>");				
+				alert("You have won! Congratulation!");
+				}
+
+			else if(turns <= 0 || player_hp <=0){
+				console.log('defeat');
+				alert('You have lost! Refresh the browser to try again!');
+			}
+		})
+
+	});
+	</script>
+
+</head>
+<body>
+<h1 id = "title">DEFEAT THE SPACE EMPEROR OF SPACE!</h1>
+<div id = "container">
+<!-- left side of the screen -->
+<div id = "left">
+<div id = "user">
+<p>Player Name:</p>
+<p id = "namer">{{session['name']}}</p>
+<p id = "player_hp">Remaing HP: 100</p>
+<p id = "turns">Remaining Turns: 10</p>
+</div>
+<div id = "status">
+<iframe src="//giphy.com/embed/3gx2RAYOmxA1q?html5=true" width="99%" height="99%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/cartoon-network-3gx2RAYOmxA1q"></a></p>
+</div>	
+<!-- Weapons -->
+<div id = "weapon">
+<h4>Click anywhere in the square to attack!</h4>
+<div id = "sword">
+<p>Space Sword</p>
+<p>Damage Range:</p>
+<p>25 Damage</p>
+</div>
+<div id = "blaster">
+<p>Space Blaster</p>
+<p>Damage Range: </p>
+<p>15-40 Damage</p></div>
+<div id = "grenade">
+<p>Space Grenade</p>
+<p>Damage Range:</p>
+<p>50-100 Damage to the Boss</p>
+<p>Half Damage to You</p></div>
+</div>
+</div>
+<!-- right side -->
+<div id = "right">
+	<div id = "gif">
+  	<iframe src="//giphy.com/embed/13JK4eGYuGTive?html5=true" width="50%" height="50%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="http://giphy.com/gifs/transparent-cartoon-network-samurai-jack-13JK4eGYuGTive"></a></p>
+	</div>
+	<div id = "boss">
+		<p id = "boss_status">THE SPACE EMPEROR HAS 300 HP LEFT</p>
+		<p id = "message"></p>
+	</div>
+</div>
+</div>
+</body>
+</html>
